@@ -1,0 +1,8 @@
+[package]
+name = "wl-zoomy"
+version = "0.1.0"
+authors = ["Hernawan Fa'iz Abdillah <hernawan.faiz@abdillah.me>"]
+
+[dependencies]
+wayland-server = "0.9.9"
+wayland-client = "0.9.9"

@@ -1,5 +1,5 @@
 args@{ stdenv, lib, fetchFromGitHub, rustPlatform,
-  pkgconfig, cargo, rustc, libdrm,
+  pkgconfig, cargo, rustc, wayland, mesa,
   # Plugins
   ... }:
 
@@ -16,7 +16,7 @@ let
     };
 
     nativeBuildInputs = [ pkgconfig rustc cargo ];
-    buildInputs = [ libdrm ];
+    buildInputs = [ wayland mesa ];
 
     depsSha256 = "08riayb1lbqcz2nm2pf5lkb6chi971f4prqzg64hf18f8m4rb889";
 

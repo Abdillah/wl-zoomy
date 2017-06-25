@@ -18,7 +18,7 @@ let
     nativeBuildInputs = [ pkgconfig rustc cargo ];
     buildInputs = [ wayland mesa ];
 
-    depsSha256 = "08riayb1lbqcz2nm2pf5lkb6chi971f4prqzg64hf18f8m4rb889";
+    depsSha256 = "0yrjjbi0mapp2shkvb9r4xva84mm558lxajwy7fp5www9xxsapla";
 
     doCheck = false;
   };

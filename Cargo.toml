@@ -4,5 +4,6 @@ version = "0.1.0"
 authors = ["Hernawan Fa'iz Abdillah <hernawan.faiz@abdillah.me>"]
 
 [dependencies]
+mmap = "0.1.1"
 wayland-server = "0.9.9"
 wayland-client = "0.9.9"

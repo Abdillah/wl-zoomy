@@ -9,6 +9,7 @@ use wayland_server::protocol::wl_region::WlRegion;
 
 mod compositor;
 mod shm;
+mod surface;
 
 fn main() {
     let (mut display, mut event_loop) = wayland_server::create_display();

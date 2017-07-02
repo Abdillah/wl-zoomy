@@ -12,8 +12,8 @@ fn main() {
     let (mut display, mut event_loop) = wayland_server::create_display();
     display.add_socket_auto().expect("Display socket cannot be used");
 
-    let compositor_hand_id = event_loop.add_handler(compositor::CompositorData::new());
-    event_loop.register_global::<WlCompositor, compositor::CompositorData>(compositor_hand_id, /* version: */ 3);
+    let compositor_id = event_loop.add_handler(compositor::CompositorData::new());
+    event_loop.register_global::<WlCompositor, compositor::CompositorData>(compositor_id, /* version: */ 3);
 
     loop {
         // flush events to client sockets

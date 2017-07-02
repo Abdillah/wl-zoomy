@@ -3,10 +3,12 @@ extern crate wayland_server;
 
 use wayland_server::Client;
 use wayland_server::protocol::wl_compositor::WlCompositor;
+use wayland_server::protocol::wl_shm::WlShm;
 use wayland_server::protocol::wl_surface::WlSurface;
 use wayland_server::protocol::wl_region::WlRegion;
 
 mod compositor;
+mod shm;
 
 fn main() {
     let (mut display, mut event_loop) = wayland_server::create_display();
@@ -14,6 +16,9 @@ fn main() {
 
     let compositor_id = event_loop.add_handler(compositor::CompositorData::new());
     event_loop.register_global::<WlCompositor, compositor::CompositorData>(compositor_id, /* version: */ 3);
+
+    let shm_id = event_loop.add_handler(shm::ShmData::new());
+    event_loop.register_global::<WlShm, shm::ShmData>(shm_id, /* version: */ 1);
 
     loop {
         // flush events to client sockets

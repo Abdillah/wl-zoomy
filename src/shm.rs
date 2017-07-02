@@ -1,21 +1,18 @@
 extern crate mmap;
 
+use std::os::unix::io::RawFd;
+
 use wayland_server::{EventLoopHandle, GlobalHandler, Client};
 use wayland_server::protocol::wl_shm;
 use wayland_server::protocol::wl_shm::WlShm;
 use wayland_server::protocol::wl_shm_pool::WlShmPool;
 
-use std::os::unix::io::RawFd;
 
-pub struct ShmData {
-    data: Option<mmap::MemoryMap>
-}
+pub struct ShmData {}
 
 impl ShmData {
     pub fn new() -> Self {
-        ShmData {
-            data: None
-        }
+        ShmData {}
     }
 }
 
@@ -45,7 +42,14 @@ impl wl_shm::Handler for ShmData {
             mmap::MapOption::MapNonStandardFlags(0x01) // MAP_SHARED
         ];
 
-        self.data = mmap::MemoryMap::new(size as usize, &moption).ok();
+        println!("shm: create_pool: mmap-ing {}", size);
+        let map = mmap::MemoryMap::new(size as usize, &moption).expect("shm: create_pool: Failed mmap-ing");
+        println!("shm: create_pool: Success mmap-ing");
+
+        // Create ShmPoolData
+        let shmpooldata = ::shm_pool::ShmPoolData::new(fd, map, size);
+        let shmpool_hand_id = evqh.add_handler(shmpooldata);
+        evqh.register::<WlShmPool, ::shm_pool::ShmPoolData>(&id, shmpool_hand_id);
     }
 }
 

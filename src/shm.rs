@@ -22,8 +22,9 @@ impl ShmData {
 impl GlobalHandler<WlShm> for ShmData {
     fn bind(&mut self, evqh: &mut EventLoopHandle, client: &Client, global: WlShm) {
         println!("global: Shm registered");
-        // let shm_hand_id = evqh.add_handler(ShmData::new());
-        // evqh.register::<WlShm, ShmData>(&global, shm_hand_id);
+
+        let shm_hand_id = evqh.add_handler(ShmData::new());
+        evqh.register::<WlShm, ShmData>(&global, shm_hand_id);
     }
 }
 

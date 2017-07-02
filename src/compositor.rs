@@ -15,8 +15,9 @@ impl CompositorData {
 impl GlobalHandler<WlCompositor> for CompositorData {
     fn bind(&mut self, evqh: &mut EventLoopHandle, client: &Client, global: WlCompositor) {
         println!("global: Compositor registered");
-        // let compositor_hand_id = evqh.add_handler(CompositorData::new());
-        // evqh.register::<WlCompositor, CompositorData>(&global, compositor_hand_id);
+
+        let compositor_hand_id = evqh.add_handler(CompositorData::new());
+        evqh.register::<WlCompositor, CompositorData>(&global, compositor_hand_id);
     }
 }
 

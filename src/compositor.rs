@@ -30,6 +30,9 @@ impl wl_compositor::Handler for CompositorData {
         id: WlSurface
     ) {
         println!("compositor: create surface");
+
+        let surface_id = evqh.add_handler(::surface::SurfaceData::new());
+        evqh.register::<WlSurface, ::surface::SurfaceData>(&id, surface_id);
     }
 
     fn create_region(

@@ -8,14 +8,26 @@ use wayland_server::protocol::wl_region::WlRegion;
 use wayland_server::protocol::wl_callback::WlCallback;
 use wayland_server::protocol::wl_output::Transform;
 
+struct Rec {
+    x: u32,
+    y: u32,
+    width: u32,
+    height: u32
+}
+
 pub struct SurfaceData {
     buffer: Option<WlBuffer>,
+    x: i32,
+    y: i32,
+    damages: Vec<Rec>
 }
 
 impl SurfaceData {
     pub fn new() -> Self {
         SurfaceData {
             buffer: None,
+            x: 0,
+            y: 0
         }
     }
 }
@@ -37,6 +49,9 @@ impl wl_surface::Handler for SurfaceData {
         x: i32,
         y: i32
     ) {
+        self.buffer = buffer;
+        self.x = x;
+        self.y = y;
     }
 
     fn damage(&mut self,
@@ -48,6 +63,7 @@ impl wl_surface::Handler for SurfaceData {
         width: i32,
         height: i32
     ) {
+        // Insert damage to be processed
     }
 
     fn frame(&mut self,
